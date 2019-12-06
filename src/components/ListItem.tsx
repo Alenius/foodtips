@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { animated } from 'react-spring';
 
-const ListItemRoot = styled.div`
+const ListItemRoot = styled(animated.div)`
   padding: 15px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const ListItemText = styled.p`
