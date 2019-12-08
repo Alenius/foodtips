@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { Recipe } from '../constants/foodItems';
+import ViewTitle from '../components/ViewTitle';
 
 const Root = styled.div`
   display: flex;
@@ -13,18 +15,49 @@ const Root = styled.div`
   box-sizing: border-box;
 `;
 
+const InfoText = styled.p`
+  color: #8cd881;
+`;
+
 interface Props {
-  selectedCuisines: string[];
   selectedTags: string[];
+  chosenRecipes: Recipe[];
+  tagsFinished: boolean;
+  setChosenRecipes(chosenRecipes: Recipe[]): void;
 }
 
 const RecipePresentationView: React.FC<Props> = ({
-  selectedCuisines,
+  chosenRecipes,
+  setChosenRecipes,
+  tagsFinished,
   selectedTags
 }) => {
-  useEffect(() => {}, [selectedCuisines, selectedTags]);
+  useEffect(() => {
+    if (tagsFinished)
+      window.scroll({ top: 3 * window.innerHeight, behavior: 'smooth' });
+  }, [tagsFinished]);
 
-  return <Root>hej</Root>;
+  useEffect(() => {
+    const filteredRecipeArr = chosenRecipes.filter(item =>
+      item.tags.some(tag => selectedTags.includes(tag))
+    );
+    console.log(filteredRecipeArr);
+    setChosenRecipes(filteredRecipeArr);
+  }, [selectedTags, setChosenRecipes]);
+
+  return (
+    <Root>
+      <ViewTitle>The start of something delicious</ViewTitle>
+      <InfoText>Here are the recepies that fit your description</InfoText>
+      {chosenRecipes.map(it => {
+        return (
+          <a href={it.link} target={'_blank'} key={it.title}>
+            {it.title}
+          </a>
+        );
+      })}
+    </Root>
+  );
 };
 
 export default RecipePresentationView;
