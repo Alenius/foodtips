@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ListItem from '../components/ListItem';
 import ViewTitle from '../components/ViewTitle';
@@ -33,6 +33,7 @@ const InfoText = styled.p`
 interface Props {
   started: boolean;
   selectedCuisines: readonly string[];
+  cuisineFinished: boolean;
   setSelectedCuisines(newSelectedCuisines: string[]): void;
   setCuisineFinished(hasDecidedCuisines: boolean): void;
   setTagsFinished(hasDecidedCuisines: boolean): void;
@@ -42,12 +43,19 @@ const CuisineSelectorView: React.FC<Props> = ({
   started,
   selectedCuisines,
   setSelectedCuisines,
+  cuisineFinished,
   setCuisineFinished,
   setTagsFinished
 }) => {
   useEffect(() => {
     if (started) window.scroll({ top: window.innerHeight, behavior: 'smooth' });
   }, [started]);
+
+  useEffect(() => {
+    if (cuisineFinished) {
+      setCuisineFinished(false);
+    }
+  }, [selectedCuisines]);
 
   const isItemSelected = (item: string): boolean => {
     return selectedCuisines.includes(item);
