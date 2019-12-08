@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ListItemRoot = styled.div`
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 4rem;
 `;
 
 const ListItemText = styled.p`
-  font-family: 'Rubik', 'Roboto', 'sans-serif';
   color: ${(props: { selected: boolean }): string =>
     props.selected ? '#F9F871' : '#8cd881'};
 
@@ -14,8 +19,6 @@ const ListItemText = styled.p`
   border-bottom-width: ${(props: { selected: boolean }): string =>
     props.selected ? '2px' : '0px'};
   border-style: solid;
-
-  padding: 3px;
   font-size: 20px;
 
   ${ListItemRoot}:hover & {
