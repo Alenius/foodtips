@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ListItem from '../components/ListItem';
 import ViewTitle from '../components/ViewTitle';
 import NextButton from '../components/NextButton';
-import { recipeArray } from '../constants/foodItems';
+import { recipeArray, Recipe } from '../constants/foodItems';
 
 const SelectorWrapper = styled.div`
   display: flex;
@@ -35,7 +35,9 @@ interface Props {
   selectedTags: readonly string[];
   setSelectedTags(newSelectedTags: string[]): void;
   cuisineFinished: boolean;
+  tagsFinished: boolean;
   setTagsFinished(isUserFinished: boolean): void;
+  setChosenRecipes(chosenArr: Recipe[]): void;
 }
 
 const TagsSelectorView: React.FC<Props> = ({
@@ -43,7 +45,9 @@ const TagsSelectorView: React.FC<Props> = ({
   cuisineFinished,
   selectedTags,
   setSelectedTags,
-  setTagsFinished
+  tagsFinished,
+  setTagsFinished,
+  setChosenRecipes
 }) => {
   const [tagArray, setTagArray] = useState<Array<string>>([]);
 
@@ -53,15 +57,22 @@ const TagsSelectorView: React.FC<Props> = ({
   }, [cuisineFinished]);
 
   useEffect(() => {
+    if (tagsFinished) {
+      setTagsFinished(false);
+    }
+  }, [selectedTags]);
+
+  useEffect(() => {
     const chosenRecipies = recipeArray.filter(recipie =>
       selectedCuisines.some(selected => {
         return recipie.cuisine === selected;
       })
     );
     const newTags: Array<string> = [];
+    setChosenRecipes(chosenRecipies);
     chosenRecipies.forEach(it => newTags.push(...it.tags));
     setTagArray(newTags);
-  }, [selectedCuisines]);
+  }, [selectedCuisines, setChosenRecipes]);
 
   const isItemSelected = (item: string): boolean => {
     return selectedTags.includes(item);
@@ -72,7 +83,7 @@ const TagsSelectorView: React.FC<Props> = ({
     if (!selected) {
       setSelectedTags([...selectedTags, item]);
     } else {
-      const arrayWithoutItem = selectedCuisines.filter(it => it !== item);
+      const arrayWithoutItem = selectedTags.filter(it => it !== item);
       setSelectedTags(arrayWithoutItem);
     }
   };
@@ -98,7 +109,7 @@ const TagsSelectorView: React.FC<Props> = ({
         })}
       </ListWrapper>
       <NextButton onClick={(): void => setTagsFinished(true)}>
-        See what's for dinner!
+        {`See what's for dinner!`}
       </NextButton>
     </SelectorWrapper>
   );
