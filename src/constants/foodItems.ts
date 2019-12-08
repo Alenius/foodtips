@@ -21,7 +21,14 @@ export const foodItemsArr = [
   { cuisine: CUISINE_ITALIAN, tags: [TAG_PIZZA, TAG_PASTA] }
 ];
 
-export const recipeArray = [
+export interface Recipe {
+  title: string;
+  link: string;
+  cuisine: string;
+  tags: Array<string>;
+}
+
+export const recipeArray: Recipe[] = [
   {
     title: 'Red Panaeng Curry',
     link: 'https://www.javligtgott.se/rod-panaeng-curry/',
@@ -30,12 +37,20 @@ export const recipeArray = [
   },
   {
     title: 'Pasta con mozzarella',
+    link: '',
     cuisine: CUISINE_ITALIAN,
     tags: [TAG_PASTA]
   },
   {
     title: 'Swedish meatballs',
+    link: '',
     cuisine: CUISINE_SWEDISH,
     tags: [TAG_HUSMANSKOST]
+  },
+  {
+    title: 'Burrito bowls',
+    link: 'https://www.budgetbytes.com/easiest-burrito-bowl-meal-prep/',
+    cuisine: CUISINE_MEXICAN,
+    tags: [TAG_BURRITO]
   }
 ];
