@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ListItem from '../components/ListItem';
 import ViewTitle from '../components/ViewTitle';
 import NextButton from '../components/NextButton';
-import { foodItemsArr } from '../constants/foodItems';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+
 const SelectorWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -30,6 +32,14 @@ const InfoText = styled.p`
   color: #8cd881;
 `;
 
+const CUISINE_LIST = gql`
+  {
+    cuisines {
+      cuisine
+    }
+  }
+`;
+
 interface Props {
   started: boolean;
   selectedCuisines: readonly string[];
@@ -37,6 +47,11 @@ interface Props {
   setSelectedCuisines(newSelectedCuisines: string[]): void;
   setCuisineFinished(hasDecidedCuisines: boolean): void;
   setTagsFinished(hasDecidedCuisines: boolean): void;
+}
+
+interface FoodItems {
+  cuisine: string;
+  tags: string[];
 }
 
 const CuisineSelectorView: React.FC<Props> = ({
@@ -47,6 +62,16 @@ const CuisineSelectorView: React.FC<Props> = ({
   setCuisineFinished,
   setTagsFinished
 }) => {
+  const { loading, error, data } = useQuery(CUISINE_LIST);
+  const [foodItems, setFoodItems] = useState<Array<FoodItems>>([]);
+
+  useEffect(() => {
+    if (!loading) {
+      console.log(data);
+      setFoodItems(data.cuisines);
+    }
+  }, [data, loading]);
+
   useEffect(() => {
     if (started) window.scroll({ top: window.innerHeight, behavior: 'smooth' });
   }, [started]);
@@ -78,7 +103,7 @@ const CuisineSelectorView: React.FC<Props> = ({
         Here you can choose what cuisine you are mostly craving today!
       </InfoText>
       <ListWrapper>
-        {foodItemsArr.map(it => {
+        {foodItems.map(it => {
           const selected = isItemSelected(it.cuisine);
           return (
             <ListItem

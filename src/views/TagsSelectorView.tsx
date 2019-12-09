@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import ListItem from '../components/ListItem';
 import ViewTitle from '../components/ViewTitle';
 import NextButton from '../components/NextButton';
-import { recipeArray, Recipe } from '../constants/foodItems';
+import { Recipe } from '../constants/foodItems';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 const SelectorWrapper = styled.div`
   display: flex;
@@ -30,6 +32,17 @@ const InfoText = styled.p`
   color: #8cd881;
 `;
 
+const CUISINE_LIST = gql`
+  {
+    recipes {
+      title
+      link
+      cuisine
+      tags
+    }
+  }
+`;
+
 interface Props {
   selectedCuisines: readonly string[];
   selectedTags: readonly string[];
@@ -38,6 +51,11 @@ interface Props {
   tagsFinished: boolean;
   setTagsFinished(isUserFinished: boolean): void;
   setChosenRecipes(chosenArr: Recipe[]): void;
+}
+
+interface FoodItems {
+  cuisine: string;
+  tags: string[];
 }
 
 const TagsSelectorView: React.FC<Props> = ({
@@ -50,6 +68,15 @@ const TagsSelectorView: React.FC<Props> = ({
   setChosenRecipes
 }) => {
   const [tagArray, setTagArray] = useState<Array<string>>([]);
+  const [foodItems, setFoodItems] = useState<Array<Recipe>>([]);
+  const { loading, error, data } = useQuery(CUISINE_LIST);
+
+  useEffect(() => {
+    if (!loading) {
+      console.log(data);
+      setFoodItems(data.recipes);
+    }
+  }, [data, loading]);
 
   useEffect(() => {
     if (cuisineFinished)
@@ -63,7 +90,7 @@ const TagsSelectorView: React.FC<Props> = ({
   }, [selectedTags]);
 
   useEffect(() => {
-    const chosenRecipies = recipeArray.filter(recipie =>
+    const chosenRecipies = foodItems.filter(recipie =>
       selectedCuisines.some(selected => {
         return recipie.cuisine === selected;
       })
@@ -72,7 +99,7 @@ const TagsSelectorView: React.FC<Props> = ({
     setChosenRecipes(chosenRecipies);
     chosenRecipies.forEach(it => newTags.push(...it.tags));
     setTagArray(newTags);
-  }, [selectedCuisines, setChosenRecipes]);
+  }, [selectedCuisines, setChosenRecipes, foodItems]);
 
   const isItemSelected = (item: string): boolean => {
     return selectedTags.includes(item);
