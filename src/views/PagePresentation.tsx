@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NextButton from '../components/NextButton';
+import NextButtonWrapper from '../components/NextButtonWrapper';
 
 const Root = styled.div`
   height: 100vh;
@@ -60,9 +61,11 @@ const PagePresentation: React.FC<PagePresentationProp> = ({
         coloror can continue without logging in and pick from a pool of my
         favourite dishes. I hope you like spicy food!
       </InfoText>
-      <StyledNextButton onClick={handleClick}>
-        Click here to start
-      </StyledNextButton>
+      <NextButtonWrapper>
+        <StyledNextButton onClick={handleClick}>
+          Click here to start
+        </StyledNextButton>
+      </NextButtonWrapper>
     </Root>
   );
 };

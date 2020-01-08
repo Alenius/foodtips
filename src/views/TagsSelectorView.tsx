@@ -6,12 +6,13 @@ import NextButton from '../components/NextButton';
 import { Recipe } from '../constants/foodItems';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import NextButtonWrapper from '../components/NextButtonWrapper';
 
 const SelectorWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: lightcoral;
+  background-color: var(--dark-slate);
   height: 100vh;
   width: 100vw;
   padding-top: 2rem;
@@ -83,12 +84,12 @@ const TagsSelectorView: React.FC<Props> = ({
       window.scroll({ top: 2 * window.innerHeight, behavior: 'smooth' });
   }, [cuisineFinished]);
 
+  // if user changes tags after pressing button previously
   useEffect(() => {
     if (tagsFinished) {
       setTagsFinished(false);
     }
   }, [selectedTags]);
-
   useEffect(() => {
     const chosenRecipies = foodItems.filter(recipie =>
       selectedCuisines.some(selected => {
@@ -119,8 +120,8 @@ const TagsSelectorView: React.FC<Props> = ({
     <SelectorWrapper>
       <ViewTitle>By tags</ViewTitle>
       <InfoText>
-        In this final stage we narrow down your choice with some tags for your
-        selected cuisines
+        Now, choose more specifically what types of dishes you are interested in
+        from the selected cuisines.
       </InfoText>
       <ListWrapper>
         {tagArray.map(it => {
@@ -135,9 +136,11 @@ const TagsSelectorView: React.FC<Props> = ({
           );
         })}
       </ListWrapper>
-      <NextButton onClick={(): void => setTagsFinished(true)}>
-        {`See what's for dinner!`}
-      </NextButton>
+      <NextButtonWrapper>
+        <NextButton onClick={(): void => setTagsFinished(true)}>
+          {`See what's for dinner!`}
+        </NextButton>
+      </NextButtonWrapper>
     </SelectorWrapper>
   );
 };
