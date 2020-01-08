@@ -62,7 +62,7 @@ const PagePresentation: React.FC<PagePresentationProp> = ({
         favourite dishes. I hope you like spicy food!
       </InfoText>
       <NextButtonWrapper>
-        <StyledNextButton onClick={handleClick}>
+        <StyledNextButton disabled={false} onClick={handleClick}>
           Click here to start
         </StyledNextButton>
       </NextButtonWrapper>

@@ -129,6 +129,7 @@ const CuisineSelectorView: React.FC<Props> = ({
       </ContentWrapper>
       <NextButtonWrapper>
         <NextButton
+          disabled={selectedCuisines.length === 0}
           onClick={(): void => {
             setCuisineFinished(true);
             setTagsFinished(false);

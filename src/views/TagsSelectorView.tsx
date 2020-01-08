@@ -137,7 +137,10 @@ const TagsSelectorView: React.FC<Props> = ({
         })}
       </ListWrapper>
       <NextButtonWrapper>
-        <NextButton onClick={(): void => setTagsFinished(true)}>
+        <NextButton
+          disabled={selectedTags.length === 0}
+          onClick={(): void => setTagsFinished(true)}
+        >
           {`See what's for dinner!`}
         </NextButton>
       </NextButtonWrapper>
