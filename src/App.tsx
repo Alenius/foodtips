@@ -8,7 +8,7 @@ const client = new ApolloClient({
   uri:
     window.location.hostname === 'localhost'
       ? 'http://localhost:4000'
-      : 'http://foodtips-server.herokuapp.com/graphql'
+      : 'https://foodtips-server.herokuapp.com/graphql'
 });
 
 const App: React.FC = () => {
