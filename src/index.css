@@ -5,6 +5,10 @@ body {
     "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /*  declare global css variables */
+  --dark-slate: #282c34;
+  --light-slate: #454754;
 }
 
 code {
