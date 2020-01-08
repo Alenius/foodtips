@@ -8,20 +8,23 @@ const Button = styled.button`
   font-size: 1.5rem;
   border-width: 0px;
   background-color: #8cd881;
+  background-color: ${(props): string => (props.disabled ? 'gray' : '#8cd881')};
+  color: ${(props): string => (props.disabled ? 'white' : 'black')};
 
   :hover {
-    cursor: pointer;
+    cursor: ${(props): string => (props.disabled ? 'cursor' : 'pointer')};
   }
 `;
 
 interface Props {
   children: React.ReactNode;
   onClick(): void;
+  disabled: boolean;
 }
 
-const NextButton: React.FC<Props> = ({ children, onClick }) => {
+const NextButton: React.FC<Props> = ({ children, onClick, disabled }) => {
   return (
-    <Button type="button" onClick={(): void => onClick()}>
+    <Button disabled={disabled} type="button" onClick={(): void => onClick()}>
       {children}
     </Button>
   );
