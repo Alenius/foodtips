@@ -19,6 +19,38 @@ const InfoText = styled.p`
   color: #8cd881;
 `;
 
+const ListWrapper = styled.div`
+  padding-top: 2rem;
+  justify-content: center;
+  display: grid;
+  width: 75%;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 2rem;
+  justify-items: center;
+`;
+
+const Link = styled.a`
+  padding: 1rem;
+  border: 1px solid;
+  border-color: var(--light-green);
+  text-decoration: none;
+  color: var(--light-green);
+`;
+
+const Title = styled.div`
+  font-size: 1.2rem;
+`;
+
+const SubTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const SubTitle = styled.div`
+  font-size: 0.8rem;
+  font-style: italic;
+`;
+
 interface Props {
   selectedTags: string[];
   chosenRecipes: Recipe[];
@@ -50,18 +82,25 @@ const RecipePresentationView: React.FC<Props> = ({
     <Root>
       <ViewTitle>The start of something delicious</ViewTitle>
       <InfoText>Here are the recepies that fit your description</InfoText>
-      {elegibleRecepies.map(it => {
-        return (
-          <a
-            href={it.link}
-            target={'_blank'}
-            key={it.title}
-            rel="noopener noreferrer"
-          >
-            {it.title}
-          </a>
-        );
-      })}
+      <ListWrapper>
+        {elegibleRecepies.map(it => {
+          console.log(it);
+          return (
+            <Link
+              href={it.link}
+              target={'_blank'}
+              key={it.title}
+              rel="noopener noreferrer"
+            >
+              <Title>{it.title}</Title>
+              <SubTitleWrapper>
+                <SubTitle>{`${it.cuisine} \u2022 `}</SubTitle>
+                <SubTitle>{it.tags.map(it => it)}</SubTitle>
+              </SubTitleWrapper>
+            </Link>
+          );
+        })}
+      </ListWrapper>
     </Root>
   );
 };
