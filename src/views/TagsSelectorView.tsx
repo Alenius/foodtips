@@ -73,11 +73,14 @@ const TagsSelectorView: React.FC<Props> = ({
   const { loading, error, data } = useQuery(CUISINE_LIST);
 
   useEffect(() => {
+    if (error) {
+      // TODO: handle the error
+    }
     if (!loading) {
       console.log(data);
       setFoodItems(data.recipes);
     }
-  }, [data, loading]);
+  }, [data, loading, error]);
 
   useEffect(() => {
     if (cuisineFinished)
