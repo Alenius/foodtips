@@ -76,11 +76,14 @@ const CuisineSelectorView: React.FC<Props> = ({
   const [foodItems, setFoodItems] = useState<Array<FoodItems>>([]);
 
   useEffect(() => {
+    if (error) {
+      // TODO: handle error
+    }
     if (!loading) {
       console.log(data);
       setFoodItems(data.cuisines);
     }
-  }, [data, loading]);
+  }, [data, loading, error]);
 
   useEffect(() => {
     if (started) window.scroll({ top: window.innerHeight, behavior: 'smooth' });
