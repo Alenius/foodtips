@@ -3,6 +3,7 @@ import './App.css';
 import { Home } from './pages/Home';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { FoodProvider } from './context/FoodProvider';
 
 const client = new ApolloClient({
   uri:
@@ -14,7 +15,9 @@ const client = new ApolloClient({
 const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
-      <Home />
+      <FoodProvider>
+        <Home />
+      </FoodProvider>
     </ApolloProvider>
   );
 };
