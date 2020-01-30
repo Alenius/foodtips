@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import PagePresentation from '../views/PagePresentation';
 import CuisineSelectorView from '../views/CuisineSelectorView';
@@ -18,7 +18,7 @@ export const Home: React.FC = () => {
   const [started, setStarted] = useState<boolean>(false);
   const [cuisineFinished, setCuisineFinished] = useState<boolean>(false);
   const [tagsFinished, setTagsFinished] = useState<boolean>(false);
-  const [selectedCusines, setSelectedCuisines] = useState<Array<string>>([]);
+  const [selectedCuisines] = useState<Array<string>>([]);
   const [selectedTags, setSelectedTags] = useState<Array<string>>([]);
   const [chosenRecipes, setChosenRecipes] = useState<Array<Recipe>>([]);
 
@@ -34,16 +34,13 @@ export const Home: React.FC = () => {
       {started ? (
         <CuisineSelectorView
           started={started}
-          selectedCuisines={selectedCusines}
-          setSelectedCuisines={setSelectedCuisines}
           cuisineFinished={cuisineFinished}
           setCuisineFinished={setCuisineFinished}
-          setTagsFinished={setTagsFinished}
         />
       ) : null}
       {started && cuisineFinished ? (
         <TagsSelectorView
-          selectedCuisines={selectedCusines}
+          selectedCuisines={selectedCuisines}
           cuisineFinished={cuisineFinished}
           selectedTags={selectedTags}
           setSelectedTags={setSelectedTags}

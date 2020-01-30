@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import ListItem from '../components/ListItem';
 import ViewTitle from '../components/ViewTitle';
@@ -6,6 +6,7 @@ import NextButton from '../components/NextButton';
 import NextButtonWrapper from '../components/NextButtonWrapper';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { FoodContext } from '../context/FoodProvider';
 
 const SelectorWrapper = styled.div`
   display: flex;
@@ -52,11 +53,8 @@ const CUISINE_LIST = gql`
 
 interface Props {
   started: boolean;
-  selectedCuisines: readonly string[];
   cuisineFinished: boolean;
-  setSelectedCuisines(newSelectedCuisines: string[]): void;
   setCuisineFinished(hasDecidedCuisines: boolean): void;
-  setTagsFinished(hasDecidedCuisines: boolean): void;
 }
 
 interface FoodItems {
@@ -66,14 +64,12 @@ interface FoodItems {
 
 const CuisineSelectorView: React.FC<Props> = ({
   started,
-  selectedCuisines,
-  setSelectedCuisines,
   cuisineFinished,
-  setCuisineFinished,
-  setTagsFinished
+  setCuisineFinished
 }) => {
   const { loading, error, data } = useQuery(CUISINE_LIST);
   const [foodItems, setFoodItems] = useState<Array<FoodItems>>([]);
+  const { state: ContextState, dispatch } = useContext(FoodContext);
 
   useEffect(() => {
     if (error) {
@@ -93,19 +89,20 @@ const CuisineSelectorView: React.FC<Props> = ({
     if (cuisineFinished) {
       setCuisineFinished(false);
     }
-  }, [selectedCuisines]);
+  }, [ContextState.cuisine]);
 
   const isItemSelected = (item: string): boolean => {
-    return selectedCuisines.includes(item);
+    return ContextState.cuisine.includes(item);
   };
 
   const onItemClick = (item: string): void => {
     const selected = isItemSelected(item);
+    const currentCuisines = ContextState.cuisine;
     if (!selected) {
-      setSelectedCuisines([...selectedCuisines, item]);
+      dispatch({ type: 'UPDATE_CUISINE', payload: [...currentCuisines, item] });
     } else {
-      const arrayWithoutItem = selectedCuisines.filter(it => it !== item);
-      setSelectedCuisines(arrayWithoutItem);
+      const arrayWithoutItem = currentCuisines.filter(it => it !== item);
+      dispatch({ type: 'UPDATE_CUISINE', payload: arrayWithoutItem });
     }
   };
 
@@ -132,7 +129,7 @@ const CuisineSelectorView: React.FC<Props> = ({
       </ContentWrapper>
       <NextButtonWrapper>
         <NextButton
-          disabled={selectedCuisines.length === 0}
+          disabled={ContextState.cuisine.length === 0}
           onClick={(): void => {
             setCuisineFinished(true);
             setTagsFinished(false);
