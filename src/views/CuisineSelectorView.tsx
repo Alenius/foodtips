@@ -132,7 +132,6 @@ const CuisineSelectorView: React.FC<Props> = ({
           disabled={ContextState.cuisine.length === 0}
           onClick={(): void => {
             setCuisineFinished(true);
-            setTagsFinished(false);
           }}
         >
           See what you should make today!
