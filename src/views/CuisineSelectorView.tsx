@@ -45,7 +45,7 @@ const InfoText = styled.p`
 
 const CUISINE_LIST = gql`
   {
-    cuisines {
+    getAllCuisines {
       cuisine
     }
   }
@@ -57,18 +57,13 @@ interface Props {
   setCuisineFinished(hasDecidedCuisines: boolean): void;
 }
 
-interface FoodItems {
-  cuisine: string;
-  tags: string[];
-}
-
 const CuisineSelectorView: React.FC<Props> = ({
   started,
   cuisineFinished,
   setCuisineFinished
 }) => {
   const { loading, error, data } = useQuery(CUISINE_LIST);
-  const [foodItems, setFoodItems] = useState<Array<FoodItems>>([]);
+  const [foodItems, setFoodItems] = useState<string[]>([]);
   const { state: contextState, dispatch } = useContext(FoodContext);
 
   useEffect(() => {
@@ -76,8 +71,14 @@ const CuisineSelectorView: React.FC<Props> = ({
       // TODO: handle error
     }
     if (!loading) {
-      console.log(data);
-      setFoodItems(data.cuisines);
+      // TODO: add loading  animation
+    }
+
+    if (data) {
+      const listOfCuisines = data.getAllCuisines.map(
+        (it: { cuisine: string; __typename: string }) => it.cuisine
+      );
+      setFoodItems(listOfCuisines);
     }
   }, [data, loading, error]);
 
@@ -115,13 +116,13 @@ const CuisineSelectorView: React.FC<Props> = ({
         </InfoText>
         <ListWrapper>
           {foodItems.map(it => {
-            const selected = isItemSelected(it.cuisine);
+            const selected = isItemSelected(it);
             return (
               <ListItem
                 selected={selected}
-                onClick={(): void => onItemClick(it.cuisine)}
-                item={it.cuisine}
-                key={it.cuisine}
+                onClick={(): void => onItemClick(it)}
+                item={it}
+                key={it}
               />
             );
           })}
