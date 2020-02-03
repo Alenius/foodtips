@@ -69,7 +69,7 @@ const CuisineSelectorView: React.FC<Props> = ({
 }) => {
   const { loading, error, data } = useQuery(CUISINE_LIST);
   const [foodItems, setFoodItems] = useState<Array<FoodItems>>([]);
-  const { state: ContextState, dispatch } = useContext(FoodContext);
+  const { state: contextState, dispatch } = useContext(FoodContext);
 
   useEffect(() => {
     if (error) {
@@ -89,15 +89,15 @@ const CuisineSelectorView: React.FC<Props> = ({
     if (cuisineFinished) {
       setCuisineFinished(false);
     }
-  }, [ContextState.cuisine]);
+  }, [contextState.cuisine]);
 
   const isItemSelected = (item: string): boolean => {
-    return ContextState.cuisine.includes(item);
+    return contextState.cuisine.includes(item);
   };
 
   const onItemClick = (item: string): void => {
     const selected = isItemSelected(item);
-    const currentCuisines = ContextState.cuisine;
+    const currentCuisines = contextState.cuisine;
     if (!selected) {
       dispatch({ type: 'UPDATE_CUISINE', payload: [...currentCuisines, item] });
     } else {
@@ -129,7 +129,7 @@ const CuisineSelectorView: React.FC<Props> = ({
       </ContentWrapper>
       <NextButtonWrapper>
         <NextButton
-          disabled={ContextState.cuisine.length === 0}
+          disabled={contextState.cuisine.length === 0}
           onClick={(): void => {
             setCuisineFinished(true);
           }}
