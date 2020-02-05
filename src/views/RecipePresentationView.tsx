@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { Recipe } from 'interfaces';
 import ViewTitle from 'components/ViewTitle';
+import { FoodContext } from 'context/FoodProvider';
 
 const Root = styled.div`
   display: flex;
@@ -52,39 +52,23 @@ const SubTitle = styled.div`
 `;
 
 interface Props {
-  selectedTags: string[];
-  chosenRecipes: Recipe[];
   tagsFinished: boolean;
-  setChosenRecipes(chosenRecipes: Recipe[]): void;
 }
 
-const RecipePresentationView: React.FC<Props> = ({
-  chosenRecipes,
-  setChosenRecipes,
-  tagsFinished,
-  selectedTags
-}) => {
-  const [elegibleRecepies, setElegibleRecipes] = useState<Array<Recipe>>([]);
+const RecipePresentationView: React.FC<Props> = ({ tagsFinished }) => {
+  const { state: contextState } = useContext(FoodContext);
 
   useEffect(() => {
     if (tagsFinished)
       window.scroll({ top: 3 * window.innerHeight, behavior: 'smooth' });
   }, [tagsFinished]);
 
-  useEffect(() => {
-    const filteredRecipeArr = chosenRecipes.filter(item =>
-      item.tags.some(tag => selectedTags.includes(tag))
-    );
-    setElegibleRecipes(filteredRecipeArr);
-  }, [selectedTags, setChosenRecipes]);
-
   return (
     <Root>
       <ViewTitle>The start of something delicious</ViewTitle>
       <InfoText>Here are the recepies that fit your description</InfoText>
       <ListWrapper>
-        {elegibleRecepies.map(it => {
-          console.log(it);
+        {contextState.selectedRecipes.map(it => {
           return (
             <Link
               href={it.link}
