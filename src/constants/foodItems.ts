@@ -25,7 +25,7 @@ export interface Recipe {
   title: string;
   link: string;
   cuisine: string;
-  tags: Array<string>;
+  tags: string[];
 }
 
 export const recipeArray: Recipe[] = [
