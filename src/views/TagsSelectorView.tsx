@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import ListItem from '../components/ListItem';
-import ViewTitle from '../components/ViewTitle';
-import NextButton from '../components/NextButton';
-import { Recipe } from '../constants/foodItems';
+import ListItem from 'components/ListItem';
+import ViewTitle from 'components/ViewTitle';
+import NextButton from 'components/NextButton';
+import { Recipe } from 'interfaces';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import NextButtonWrapper from '../components/NextButtonWrapper';
+import NextButtonWrapper from 'components/NextButtonWrapper';
+import { FoodContext } from 'context/FoodProvider';
 
 const SelectorWrapper = styled.div`
   display: flex;
@@ -33,89 +34,72 @@ const InfoText = styled.p`
   color: #8cd881;
 `;
 
-const CUISINE_LIST = gql`
-  {
-    recipes {
+const RECIPES_WITH_CUISINE = gql`
+  query getRecipe($cuisines: [String]!) {
+    getRecipe(cuisines: $cuisines) {
       title
       link
       cuisine
       tags
+      vegan
+      vegetarian
     }
   }
 `;
 
 interface Props {
-  selectedCuisines: readonly string[];
-  selectedTags: readonly string[];
-  setSelectedTags(newSelectedTags: string[]): void;
   cuisineFinished: boolean;
   tagsFinished: boolean;
   setTagsFinished(isUserFinished: boolean): void;
-  setChosenRecipes(chosenArr: Recipe[]): void;
-}
-
-interface FoodItems {
-  cuisine: string;
-  tags: string[];
 }
 
 const TagsSelectorView: React.FC<Props> = ({
-  selectedCuisines,
   cuisineFinished,
-  selectedTags,
-  setSelectedTags,
-  tagsFinished,
-  setTagsFinished,
-  setChosenRecipes
+  setTagsFinished
 }) => {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [tagArray, setTagArray] = useState<Array<string>>([]);
-  const [foodItems, setFoodItems] = useState<Array<Recipe>>([]);
-  const { loading, error, data } = useQuery(CUISINE_LIST);
-
+  const { state: contextState, dispatch } = useContext(FoodContext);
+  const { loading, error, data } = useQuery(RECIPES_WITH_CUISINE, {
+    variables: { cuisines: contextState.cuisine }
+  });
   useEffect(() => {
     if (error) {
       // TODO: handle the error
     }
-    if (!loading) {
-      console.log(data);
-      setFoodItems(data.recipes);
+    if (data) {
+      const fetchedTagArr = data.getRecipe.map((it: Recipe) => it.tags).flat();
+      setRecipes(data.getRecipe);
+      setTagArray(fetchedTagArr);
     }
-  }, [data, loading, error]);
+  }, [data, error]);
 
   useEffect(() => {
     if (cuisineFinished)
       window.scroll({ top: 2 * window.innerHeight, behavior: 'smooth' });
   }, [cuisineFinished]);
 
-  // if user changes tags after pressing button previously
-  useEffect(() => {
-    if (tagsFinished) {
-      setTagsFinished(false);
-    }
-  }, [selectedTags]);
-  useEffect(() => {
-    const chosenRecipies = foodItems.filter(recipie =>
-      selectedCuisines.some(selected => {
-        return recipie.cuisine === selected;
-      })
-    );
-    const newTags: Array<string> = [];
-    setChosenRecipes(chosenRecipies);
-    chosenRecipies.forEach(it => newTags.push(...it.tags));
-    setTagArray(newTags);
-  }, [selectedCuisines, setChosenRecipes, foodItems]);
+  // // if user changes tags after pressing button previously
+  // useEffect(() => {
+  //   if (tagsFinished) {
+  //     setTagsFinished(false);
+  //   }
+  // }, [selectedTags]);
 
-  const isItemSelected = (item: string): boolean => {
-    return selectedTags.includes(item);
+  const isItemSelected = (tag: string): boolean => {
+    return contextState.tags.includes(tag);
   };
 
-  const onItemClick = (item: string): void => {
-    const selected = isItemSelected(item);
+  const onItemClick = (tag: string): void => {
+    const selected = isItemSelected(tag);
     if (!selected) {
-      setSelectedTags([...selectedTags, item]);
+      dispatch({
+        type: 'UPDATE_TAGS',
+        payload: [...contextState.tags, tag]
+      });
     } else {
-      const arrayWithoutItem = selectedTags.filter(it => it !== item);
-      setSelectedTags(arrayWithoutItem);
+      const arrayWithoutItem = contextState.tags.filter(it => it !== tag);
+      dispatch({ type: 'UPDATE_TAGS', payload: arrayWithoutItem });
     }
   };
 
@@ -141,8 +125,17 @@ const TagsSelectorView: React.FC<Props> = ({
       </ListWrapper>
       <NextButtonWrapper>
         <NextButton
-          disabled={selectedTags.length === 0}
-          onClick={(): void => setTagsFinished(true)}
+          disabled={contextState.tags.length === 0}
+          onClick={(): void => {
+            const filteredRecipeArr = recipes.filter(item =>
+              item.tags.some(tag => contextState.tags.includes(tag))
+            );
+            dispatch({
+              type: 'UPDATE_SELECTED_RECIPES',
+              payload: filteredRecipeArr
+            });
+            setTagsFinished(true);
+          }}
         >
           {`See what's for dinner!`}
         </NextButton>
