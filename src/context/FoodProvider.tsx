@@ -1,9 +1,11 @@
 import React, { useReducer, createContext } from 'react';
 import cuisines from '../constants/cusines';
+import { Recipe } from 'interfaces';
 
 interface StateIfc {
   cuisine: string[];
   tags: string[];
+  selectedRecipes: Recipe[];
 }
 
 type UpdateCuisineAction = {
@@ -16,7 +18,12 @@ type UpdateTagsAction = {
   payload: string[];
 };
 
-type Actions = UpdateCuisineAction | UpdateTagsAction;
+type UpdateSelectedRecipes = {
+  type: 'UPDATE_SELECTED_RECIPES';
+  payload: Recipe[];
+};
+
+type Actions = UpdateCuisineAction | UpdateTagsAction | UpdateSelectedRecipes;
 
 interface ContextIfc {
   state: StateIfc;
@@ -25,7 +32,8 @@ interface ContextIfc {
 
 const initState: StateIfc = {
   cuisine: [],
-  tags: []
+  tags: [],
+  selectedRecipes: []
 };
 
 const FoodContext = createContext<ContextIfc>({
@@ -40,6 +48,10 @@ const FoodProvider: React.FC<{ children: React.ReactNode }> = ({
     switch (action.type) {
       case 'UPDATE_CUISINE':
         return { ...state, cuisine: action.payload };
+      case 'UPDATE_TAGS':
+        return { ...state, tags: action.payload };
+      case 'UPDATE_SELECTED_RECIPES':
+        return { ...state, selectedRecipes: action.payload };
       default:
         return state;
     }
