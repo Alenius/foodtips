@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import ListItem from '../components/ListItem';
-import ViewTitle from '../components/ViewTitle';
-import NextButton from '../components/NextButton';
-import NextButtonWrapper from '../components/NextButtonWrapper';
+import ListItem from 'components/ListItem';
+import ViewTitle from 'components/ViewTitle';
+import NextButton from 'components/NextButton';
+import NextButtonWrapper from 'components/NextButtonWrapper';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { FoodContext } from '../context/FoodProvider';
+import { FoodContext } from 'context/FoodProvider';
 
 const SelectorWrapper = styled.div`
   display: flex;
@@ -45,9 +45,7 @@ const InfoText = styled.p`
 
 const CUISINE_LIST = gql`
   {
-    getAllCuisines {
-      cuisine
-    }
+    getAllCuisines
   }
 `;
 
@@ -75,10 +73,7 @@ const CuisineSelectorView: React.FC<Props> = ({
     }
 
     if (data) {
-      const listOfCuisines = data.getAllCuisines.map(
-        (it: { cuisine: string; __typename: string }) => it.cuisine
-      );
-      setFoodItems(listOfCuisines);
+      setFoodItems(data.getAllCuisines);
     }
   }, [data, loading, error]);
 
