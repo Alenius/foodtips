@@ -3,4 +3,6 @@ export interface Recipe {
   link: string;
   cuisine: string;
   tags: string[];
+  vegetarian: boolean;
+  vegan: boolean;
 }
