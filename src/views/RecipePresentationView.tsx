@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Recipe } from '../constants/foodItems';
-import ViewTitle from '../components/ViewTitle';
+import { Recipe } from 'interfaces';
+import ViewTitle from 'components/ViewTitle';
 
 const Root = styled.div`
   display: flex;
@@ -90,7 +90,7 @@ const RecipePresentationView: React.FC<Props> = ({
               href={it.link}
               target={'_blank'}
               key={it.title}
-              rel="noopener noreferrer"
+              rel='noopener noreferrer'
             >
               <Title>{it.title}</Title>
               <SubTitleWrapper>
