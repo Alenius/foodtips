@@ -58,8 +58,8 @@ const PagePresentation: React.FC<PagePresentationProp> = ({
       </InfoText>
       <InfoText>
         If you want to, you can log in and choose from your saved items, or you
-        coloror can continue without logging in and pick from a pool of my
-        favourite dishes. I hope you like spicy food!
+        can continue without logging in and pick from a pool of my favourite
+        dishes. I hope you like spicy food!
       </InfoText>
       <NextButtonWrapper>
         <StyledNextButton disabled={false} onClick={handleClick}>
