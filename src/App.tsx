@@ -4,6 +4,7 @@ import { Home } from './pages/Home';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { FoodProvider } from './context/FoodProvider';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const client = new ApolloClient({
   uri:
@@ -16,7 +17,13 @@ const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
       <FoodProvider>
-        <Home />
+        <Router>
+          <Switch>
+            <Route path='/'>
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
       </FoodProvider>
     </ApolloProvider>
   );
