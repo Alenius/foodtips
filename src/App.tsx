@@ -8,12 +8,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SelectCuisine from 'pages/SelectCuisine';
 import SelectTags from 'pages/SelectTags';
 import RecipePresentation from 'pages/RecipePresentation';
+import { NavBar } from 'components/NavBar';
 
 const client = new ApolloClient({
   uri:
     window.location.hostname === 'localhost'
       ? 'http://localhost:4000'
-      : 'https://foodtips-server.herokuapp.com/graphql'
+      : 'https://foodtips-server.herokuapp.com/graphql',
 });
 
 const App: React.FC = () => {
@@ -21,6 +22,7 @@ const App: React.FC = () => {
     <ApolloProvider client={client}>
       <FoodProvider>
         <Router>
+          <NavBar />
           <Switch>
             <Route path='/recipePresentation' component={RecipePresentation} />
             <Route path='/selectTags' component={SelectTags} />
