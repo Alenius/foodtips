@@ -10,6 +10,8 @@ const Button = styled(Link)`
   font-size: 1.5rem;
   border-width: 0px;
   background-color: #8cd881;
+  color: black;
+  text-decoration: none;
 
   :hover {
     cursor: pointer;
