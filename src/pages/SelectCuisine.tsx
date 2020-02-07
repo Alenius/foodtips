@@ -35,13 +35,6 @@ const ListWrapper = styled.div`
   justify-items: center;
 `;
 
-const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-`;
-
 const InfoText = styled.p`
   color: #8cd881;
 `;
@@ -108,25 +101,23 @@ const SelectCuisine: React.FC<Props> = ({
   return (
     <AnimationWrapper backgroundColor={theme.secondaryBackgroundColor}>
       <SelectorWrapper>
-        <ContentWrapper>
-          <ViewTitle>By cuisine</ViewTitle>
-          <InfoText>
-            Start by choosing what cuisine that interests you today
-          </InfoText>
-          <ListWrapper>
-            {foodItems.map(it => {
-              const selected = isItemSelected(it);
-              return (
-                <ListItem
-                  selected={selected}
-                  onClick={(): void => onItemClick(it)}
-                  item={it}
-                  key={it}
-                />
-              );
-            })}
-          </ListWrapper>
-        </ContentWrapper>
+        <ViewTitle>By cuisine</ViewTitle>
+        <InfoText>
+          Start by choosing what cuisine that interests you today
+        </InfoText>
+        <ListWrapper>
+          {foodItems.map(it => {
+            const selected = isItemSelected(it);
+            return (
+              <ListItem
+                selected={selected}
+                onClick={(): void => onItemClick(it)}
+                item={it}
+                key={it}
+              />
+            );
+          })}
+        </ListWrapper>
         <NextButton to='/selectTags'>
           See what you should make today!
         </NextButton>
