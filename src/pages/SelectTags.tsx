@@ -6,7 +6,6 @@ import NextButton from 'components/NextButton';
 import { Recipe } from 'interfaces';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import NextButtonWrapper from 'components/NextButtonWrapper';
 import { FoodContext } from 'context/FoodProvider';
 
 const SelectorWrapper = styled.div`
@@ -53,10 +52,7 @@ interface Props {
   setTagsFinished(isUserFinished: boolean): void;
 }
 
-const TagsSelectorView: React.FC<Props> = ({
-  cuisineFinished,
-  setTagsFinished
-}) => {
+const SelectTags: React.FC<Props> = ({ cuisineFinished, setTagsFinished }) => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [tagArray, setTagArray] = useState<Array<string>>([]);
   const { state: contextState, dispatch } = useContext(FoodContext);
@@ -73,18 +69,6 @@ const TagsSelectorView: React.FC<Props> = ({
       setTagArray(fetchedTagArr);
     }
   }, [data, error]);
-
-  useEffect(() => {
-    if (cuisineFinished)
-      window.scroll({ top: 2 * window.innerHeight, behavior: 'smooth' });
-  }, [cuisineFinished]);
-
-  // // if user changes tags after pressing button previously
-  // useEffect(() => {
-  //   if (tagsFinished) {
-  //     setTagsFinished(false);
-  //   }
-  // }, [selectedTags]);
 
   const isItemSelected = (tag: string): boolean => {
     return contextState.tags.includes(tag);
@@ -123,25 +107,11 @@ const TagsSelectorView: React.FC<Props> = ({
           );
         })}
       </ListWrapper>
-      <NextButtonWrapper>
-        <NextButton
-          disabled={contextState.tags.length === 0}
-          onClick={(): void => {
-            const filteredRecipeArr = recipes.filter(item =>
-              item.tags.some(tag => contextState.tags.includes(tag))
-            );
-            dispatch({
-              type: 'UPDATE_SELECTED_RECIPES',
-              payload: filteredRecipeArr
-            });
-            setTagsFinished(true);
-          }}
-        >
-          {`See what's for dinner!`}
-        </NextButton>
-      </NextButtonWrapper>
+      <NextButton to='/recipePresentation'>
+        See your selected recipes
+      </NextButton>
     </SelectorWrapper>
   );
 };
 
-export default TagsSelectorView;
+export default SelectTags;

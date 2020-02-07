@@ -55,7 +55,7 @@ interface Props {
   setCuisineFinished(hasDecidedCuisines: boolean): void;
 }
 
-const CuisineSelectorView: React.FC<Props> = ({
+const SelectCuisine: React.FC<Props> = ({
   started,
   cuisineFinished,
   setCuisineFinished
@@ -123,18 +123,9 @@ const CuisineSelectorView: React.FC<Props> = ({
           })}
         </ListWrapper>
       </ContentWrapper>
-      <NextButtonWrapper>
-        <NextButton
-          disabled={contextState.cuisine.length === 0}
-          onClick={(): void => {
-            setCuisineFinished(true);
-          }}
-        >
-          See what you should make today!
-        </NextButton>
-      </NextButtonWrapper>
+      <NextButton to='/selectTags'>See what you should make today!</NextButton>
     </SelectorWrapper>
   );
 };
 
-export default CuisineSelectorView;
+export default SelectCuisine;

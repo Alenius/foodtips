@@ -55,7 +55,7 @@ interface Props {
   tagsFinished: boolean;
 }
 
-const RecipePresentationView: React.FC<Props> = ({ tagsFinished }) => {
+const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
   const { state: contextState } = useContext(FoodContext);
 
   useEffect(() => {
@@ -89,4 +89,4 @@ const RecipePresentationView: React.FC<Props> = ({ tagsFinished }) => {
   );
 };
 
-export default RecipePresentationView;
+export default RecipePresentation;
