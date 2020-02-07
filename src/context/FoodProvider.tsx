@@ -6,6 +6,7 @@ interface StateIfc {
   cuisine: string[];
   tags: string[];
   selectedRecipes: Recipe[];
+  loggedIn: boolean;
 }
 
 type UpdateCuisineAction = {
@@ -33,16 +34,17 @@ interface ContextIfc {
 const initState: StateIfc = {
   cuisine: [],
   tags: [],
-  selectedRecipes: []
+  selectedRecipes: [],
+  loggedIn: false,
 };
 
 const FoodContext = createContext<ContextIfc>({
   state: initState,
-  dispatch: () => null
+  dispatch: () => null,
 });
 
 const FoodProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
+  children,
 }) => {
   const reducer = (state: StateIfc, action: Actions): StateIfc => {
     switch (action.type) {
