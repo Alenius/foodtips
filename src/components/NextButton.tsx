@@ -3,6 +3,12 @@ import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
 
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+`;
+
 const Button = styled(Link)`
   padding: 1rem;
   padding-left: 2rem;
@@ -12,6 +18,7 @@ const Button = styled(Link)`
   background-color: #8cd881;
   color: black;
   text-decoration: none;
+  text-align: center;
 
   :hover {
     cursor: pointer;
@@ -31,9 +38,11 @@ const NextButton: React.FC<Props> = ({
   children
 }) => {
   return (
-    <Button to={to} onClick={(): void => onClick()}>
-      {children}
-    </Button>
+    <Wrapper>
+      <Button to={to} onClick={(): void => onClick()}>
+        {children}
+      </Button>
+    </Wrapper>
   );
 };
 
