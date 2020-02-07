@@ -12,7 +12,6 @@ const SelectorWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   background-color: #454754;
   height: 100vh;
   width: 100vw;
@@ -30,13 +29,6 @@ const ListWrapper = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 2rem;
   justify-items: center;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
 `;
 
 const InfoText = styled.p`
@@ -104,25 +96,23 @@ const SelectCuisine: React.FC<Props> = ({
 
   return (
     <SelectorWrapper>
-      <ContentWrapper>
-        <ViewTitle>By cuisine</ViewTitle>
-        <InfoText>
-          Start by choosing what cuisine that interests you today
-        </InfoText>
-        <ListWrapper>
-          {foodItems.map(it => {
-            const selected = isItemSelected(it);
-            return (
-              <ListItem
-                selected={selected}
-                onClick={(): void => onItemClick(it)}
-                item={it}
-                key={it}
-              />
-            );
-          })}
-        </ListWrapper>
-      </ContentWrapper>
+      <ViewTitle>By cuisine</ViewTitle>
+      <InfoText>
+        Start by choosing what cuisine that interests you today
+      </InfoText>
+      <ListWrapper>
+        {foodItems.map(it => {
+          const selected = isItemSelected(it);
+          return (
+            <ListItem
+              selected={selected}
+              onClick={(): void => onItemClick(it)}
+              item={it}
+              key={it}
+            />
+          );
+        })}
+      </ListWrapper>
       <NextButton to='/selectTags'>See what you should make today!</NextButton>
     </SelectorWrapper>
   );
