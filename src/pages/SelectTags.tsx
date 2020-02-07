@@ -46,13 +46,7 @@ const RECIPES_WITH_CUISINE = gql`
   }
 `;
 
-interface Props {
-  cuisineFinished: boolean;
-  tagsFinished: boolean;
-  setTagsFinished(isUserFinished: boolean): void;
-}
-
-const SelectTags: React.FC<Props> = ({ cuisineFinished, setTagsFinished }) => {
+const SelectTags: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [tagArray, setTagArray] = useState<Array<string>>([]);
   const { state: contextState, dispatch } = useContext(FoodContext);
@@ -107,7 +101,18 @@ const SelectTags: React.FC<Props> = ({ cuisineFinished, setTagsFinished }) => {
           );
         })}
       </ListWrapper>
-      <NextButton to='/recipePresentation'>
+      <NextButton
+        to='/recipePresentation'
+        onClick={() => {
+          const filteredRecipeArr = recipes.filter(item =>
+            item.tags.some(tag => contextState.tags.includes(tag))
+          );
+          dispatch({
+            type: 'UPDATE_SELECTED_RECIPES',
+            payload: filteredRecipeArr
+          });
+        }}
+      >
         See your selected recipes
       </NextButton>
     </SelectorWrapper>
