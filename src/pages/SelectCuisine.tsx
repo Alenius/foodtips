@@ -1,19 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import ListItem from 'components/ListItem';
 import ViewTitle from 'components/ViewTitle';
 import NextButton from 'components/NextButton';
-import NextButtonWrapper from 'components/NextButtonWrapper';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { FoodContext } from 'context/FoodProvider';
+import { useSpring, animated } from 'react-spring';
 
-const SelectorWrapper = styled.div`
+import { FoodContext } from 'context/FoodProvider';
+import AnimationWrapper from 'components/AnimationWrapper';
+import theme from 'theme';
+
+const SelectorWrapper = styled(animated.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background-color: #454754;
+  background-color: ${theme.secondaryBackgroundColor};
   height: 100vh;
   width: 100vw;
   padding-top: 2rem;
@@ -58,7 +61,7 @@ interface Props {
 const SelectCuisine: React.FC<Props> = ({
   started,
   cuisineFinished,
-  setCuisineFinished
+  setCuisineFinished,
 }) => {
   const { loading, error, data } = useQuery(CUISINE_LIST);
   const [foodItems, setFoodItems] = useState<string[]>([]);
@@ -103,28 +106,32 @@ const SelectCuisine: React.FC<Props> = ({
   };
 
   return (
-    <SelectorWrapper>
-      <ContentWrapper>
-        <ViewTitle>By cuisine</ViewTitle>
-        <InfoText>
-          Start by choosing what cuisine that interests you today
-        </InfoText>
-        <ListWrapper>
-          {foodItems.map(it => {
-            const selected = isItemSelected(it);
-            return (
-              <ListItem
-                selected={selected}
-                onClick={(): void => onItemClick(it)}
-                item={it}
-                key={it}
-              />
-            );
-          })}
-        </ListWrapper>
-      </ContentWrapper>
-      <NextButton to='/selectTags'>See what you should make today!</NextButton>
-    </SelectorWrapper>
+    <AnimationWrapper backgroundColor={theme.secondaryBackgroundColor}>
+      <SelectorWrapper>
+        <ContentWrapper>
+          <ViewTitle>By cuisine</ViewTitle>
+          <InfoText>
+            Start by choosing what cuisine that interests you today
+          </InfoText>
+          <ListWrapper>
+            {foodItems.map(it => {
+              const selected = isItemSelected(it);
+              return (
+                <ListItem
+                  selected={selected}
+                  onClick={(): void => onItemClick(it)}
+                  item={it}
+                  key={it}
+                />
+              );
+            })}
+          </ListWrapper>
+        </ContentWrapper>
+        <NextButton to='/selectTags'>
+          See what you should make today!
+        </NextButton>
+      </SelectorWrapper>
+    </AnimationWrapper>
   );
 };
 

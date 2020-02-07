@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import NextButtonWrapper from 'components/NextButtonWrapper';
 import NextButton from 'components/NextButton';
-import { Link } from 'react-router-dom';
-import SelectCuisine from './SelectCuisine';
+import AnimationWrapper from 'components/AnimationWrapper';
+import theme from 'theme';
 
 const PageRoot = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: #282c34;
+  background-color: ${theme.primaryBackgroundColor};
   align-items: center;
 `;
 
@@ -40,20 +39,22 @@ const Presentation = styled.h1`
 
 export const Home: React.FC = () => {
   return (
-    <PageRoot>
-      <Root>
-        <Label>Foodtips</Label>
-        <Presentation>What food are you craving today?</Presentation>
-        <InfoText>
-          We will help you to choose the dish you are looking for just today.
-        </InfoText>
-        <InfoText>
-          If you want to, you can log in and choose from your saved items, or
-          you can continue without logging in and pick from a pool of my
-          favourite dishes. I hope you like spicy food!
-        </InfoText>
-        <NextButton to='/selectCuisine'>Click here to start</NextButton>
-      </Root>
-    </PageRoot>
+    <AnimationWrapper>
+      <PageRoot>
+        <Root>
+          <Label>Foodtips</Label>
+          <Presentation>What food are you craving today?</Presentation>
+          <InfoText>
+            We will help you to choose the dish you are looking for just today.
+          </InfoText>
+          <InfoText>
+            If you want to, you can log in and choose from your saved items, or
+            you can continue without logging in and pick from a pool of my
+            favourite dishes. I hope you like spicy food!
+          </InfoText>
+          <NextButton to='/selectCuisine'>Click here to start</NextButton>
+        </Root>
+      </PageRoot>
+    </AnimationWrapper>
   );
 };

@@ -2,12 +2,14 @@ import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import ViewTitle from 'components/ViewTitle';
 import { FoodContext } from 'context/FoodProvider';
+import AnimationWrapper from 'components/AnimationWrapper';
+import theme from 'theme';
 
 const Root = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: var(--light-slate);
+  background-color: ${theme.secondaryBackgroundColor};
   height: 100vh;
   width: 100vw;
   padding-top: 2rem;
@@ -64,28 +66,30 @@ const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
   }, [tagsFinished]);
 
   return (
-    <Root>
-      <ViewTitle>The start of something delicious</ViewTitle>
-      <InfoText>Here are the recepies that fit your description</InfoText>
-      <ListWrapper>
-        {contextState.selectedRecipes.map(it => {
-          return (
-            <Link
-              href={it.link}
-              target={'_blank'}
-              key={it.title}
-              rel='noopener noreferrer'
-            >
-              <Title>{it.title}</Title>
-              <SubTitleWrapper>
-                <SubTitle>{`${it.cuisine} \u2022 `}</SubTitle>
-                <SubTitle>{it.tags.map(it => it)}</SubTitle>
-              </SubTitleWrapper>
-            </Link>
-          );
-        })}
-      </ListWrapper>
-    </Root>
+    <AnimationWrapper backgroundColor={theme.secondaryBackgroundColor}>
+      <Root>
+        <ViewTitle>The start of something delicious</ViewTitle>
+        <InfoText>Here are the recepies that fit your description</InfoText>
+        <ListWrapper>
+          {contextState.selectedRecipes.map(it => {
+            return (
+              <Link
+                href={it.link}
+                target={'_blank'}
+                key={it.title}
+                rel='noopener noreferrer'
+              >
+                <Title>{it.title}</Title>
+                <SubTitleWrapper>
+                  <SubTitle>{`${it.cuisine} \u2022 `}</SubTitle>
+                  <SubTitle>{it.tags.map(it => it)}</SubTitle>
+                </SubTitleWrapper>
+              </Link>
+            );
+          })}
+        </ListWrapper>
+      </Root>
+    </AnimationWrapper>
   );
 };
 

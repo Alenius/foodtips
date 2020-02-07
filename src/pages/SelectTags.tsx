@@ -7,12 +7,14 @@ import { Recipe } from 'interfaces';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { FoodContext } from 'context/FoodProvider';
+import AnimationWrapper from 'components/AnimationWrapper';
+import theme from 'theme';
 
 const SelectorWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: var(--dark-slate);
+  background-color: ${theme.primaryBackgroundColor};
   height: 100vh;
   width: 100vw;
   padding-top: 2rem;
@@ -51,7 +53,7 @@ const SelectTags: React.FC = () => {
   const [tagArray, setTagArray] = useState<Array<string>>([]);
   const { state: contextState, dispatch } = useContext(FoodContext);
   const { loading, error, data } = useQuery(RECIPES_WITH_CUISINE, {
-    variables: { cuisines: contextState.cuisine }
+    variables: { cuisines: contextState.cuisine },
   });
   useEffect(() => {
     if (error) {
@@ -73,7 +75,7 @@ const SelectTags: React.FC = () => {
     if (!selected) {
       dispatch({
         type: 'UPDATE_TAGS',
-        payload: [...contextState.tags, tag]
+        payload: [...contextState.tags, tag],
       });
     } else {
       const arrayWithoutItem = contextState.tags.filter(it => it !== tag);
@@ -82,40 +84,42 @@ const SelectTags: React.FC = () => {
   };
 
   return (
-    <SelectorWrapper>
-      <ViewTitle>By tags</ViewTitle>
-      <InfoText>
-        Now, choose more specifically what types of dishes you are interested in
-        from the selected cuisines.
-      </InfoText>
-      <ListWrapper>
-        {tagArray.map(it => {
-          const selected = isItemSelected(it);
-          return (
-            <ListItem
-              selected={selected}
-              onClick={(): void => onItemClick(it)}
-              item={it}
-              key={it}
-            />
-          );
-        })}
-      </ListWrapper>
-      <NextButton
-        to='/recipePresentation'
-        onClick={() => {
-          const filteredRecipeArr = recipes.filter(item =>
-            item.tags.some(tag => contextState.tags.includes(tag))
-          );
-          dispatch({
-            type: 'UPDATE_SELECTED_RECIPES',
-            payload: filteredRecipeArr
-          });
-        }}
-      >
-        See your selected recipes
-      </NextButton>
-    </SelectorWrapper>
+    <AnimationWrapper>
+      <SelectorWrapper>
+        <ViewTitle>By tags</ViewTitle>
+        <InfoText>
+          Now, choose more specifically what types of dishes you are interested
+          in from the selected cuisines.
+        </InfoText>
+        <ListWrapper>
+          {tagArray.map(it => {
+            const selected = isItemSelected(it);
+            return (
+              <ListItem
+                selected={selected}
+                onClick={(): void => onItemClick(it)}
+                item={it}
+                key={it}
+              />
+            );
+          })}
+        </ListWrapper>
+        <NextButton
+          to='/recipePresentation'
+          onClick={() => {
+            const filteredRecipeArr = recipes.filter(item =>
+              item.tags.some(tag => contextState.tags.includes(tag))
+            );
+            dispatch({
+              type: 'UPDATE_SELECTED_RECIPES',
+              payload: filteredRecipeArr,
+            });
+          }}
+        >
+          See your selected recipes
+        </NextButton>
+      </SelectorWrapper>
+    </AnimationWrapper>
   );
 };
 
