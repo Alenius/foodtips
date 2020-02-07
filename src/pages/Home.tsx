@@ -42,7 +42,6 @@ export const Home: React.FC = () => {
     <AnimationWrapper>
       <PageRoot>
         <Root>
-          <Label>Foodtips</Label>
           <Presentation>What food are you craving today?</Presentation>
           <InfoText>
             We will help you to choose the dish you are looking for just today.
