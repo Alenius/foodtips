@@ -18,7 +18,7 @@ const SelectorWrapper = styled(animated.div)`
   justify-content: space-between;
   background-color: ${theme.secondaryBackgroundColor};
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   padding-top: 2rem;
   padding-bottom: 2rem;
   /* this prevents the padding from chaging the height */
