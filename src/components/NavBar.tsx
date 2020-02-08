@@ -10,6 +10,8 @@ const Root = styled.div`
   width: 100%;
   height: 5rem;
   background-color: ${theme.primaryBackgroundColor};
+
+  border-bottom: 1px solid ${theme.lightgreen};
 `;
 
 const NavWrapper = styled.div`
