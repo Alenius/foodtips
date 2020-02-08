@@ -3,14 +3,7 @@ import styled from 'styled-components';
 import NextButton from 'components/NextButton';
 import AnimationWrapper from 'components/AnimationWrapper';
 import theme from 'theme';
-
-const PageRoot = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  background-color: ${theme.primaryBackgroundColor};
-  align-items: center;
-`;
+import PageContentWrapper from 'components/PageContentWrapper';
 
 const Root = styled.div`
   height: 100vh;
@@ -40,7 +33,7 @@ const Presentation = styled.h1`
 export const Home: React.FC = () => {
   return (
     <AnimationWrapper>
-      <PageRoot>
+      <PageContentWrapper>
         <Root>
           <Presentation>What food are you craving today?</Presentation>
           <InfoText>
@@ -53,7 +46,7 @@ export const Home: React.FC = () => {
           </InfoText>
           <NextButton to='/selectCuisine'>Click here to start</NextButton>
         </Root>
-      </PageRoot>
+      </PageContentWrapper>
     </AnimationWrapper>
   );
 };

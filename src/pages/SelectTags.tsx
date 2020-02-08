@@ -9,18 +9,8 @@ import { gql } from 'apollo-boost';
 import { FoodContext } from 'context/FoodProvider';
 import AnimationWrapper from 'components/AnimationWrapper';
 import theme from 'theme';
+import PageContentWrapper from 'components/PageContentWrapper';
 
-const SelectorWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: ${theme.primaryBackgroundColor};
-  height: 100vh;
-  width: 100vw;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  box-sizing: border-box;
-`;
 const ListWrapper = styled.div`
   padding-top: 2rem;
   justify-content: center;
@@ -85,7 +75,7 @@ const SelectTags: React.FC = () => {
 
   return (
     <AnimationWrapper>
-      <SelectorWrapper>
+      <PageContentWrapper>
         <ViewTitle>By tags</ViewTitle>
         <InfoText>
           Now, choose more specifically what types of dishes you are interested
@@ -118,7 +108,7 @@ const SelectTags: React.FC = () => {
         >
           See your selected recipes
         </NextButton>
-      </SelectorWrapper>
+      </PageContentWrapper>
     </AnimationWrapper>
   );
 };

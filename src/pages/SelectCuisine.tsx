@@ -10,20 +10,7 @@ import { useSpring, animated } from 'react-spring';
 import { FoodContext } from 'context/FoodProvider';
 import AnimationWrapper from 'components/AnimationWrapper';
 import theme from 'theme';
-
-const SelectorWrapper = styled(animated.div)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: ${theme.secondaryBackgroundColor};
-  height: 100vh;
-  width: 100%;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  /* this prevents the padding from chaging the height */
-  box-sizing: border-box;
-`;
+import PageContentWrapper from 'components/PageContentWrapper';
 
 const ListWrapper = styled.div`
   padding-top: 2rem;
@@ -99,8 +86,8 @@ const SelectCuisine: React.FC<Props> = ({
   };
 
   return (
-    <AnimationWrapper backgroundColor={theme.secondaryBackgroundColor}>
-      <SelectorWrapper>
+    <AnimationWrapper>
+      <PageContentWrapper>
         <ViewTitle>By cuisine</ViewTitle>
         <InfoText>
           Start by choosing what cuisine that interests you today
@@ -121,7 +108,7 @@ const SelectCuisine: React.FC<Props> = ({
         <NextButton to='/selectTags'>
           See what you should make today!
         </NextButton>
-      </SelectorWrapper>
+      </PageContentWrapper>
     </AnimationWrapper>
   );
 };
