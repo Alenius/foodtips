@@ -14,15 +14,8 @@ const Root = styled.div`
   padding-right: 10%;
 `;
 
-const Label = styled.p`
-  font-size: 2rem;
-  color: #8cd881;
-  font-weight: bold;
-  font-size: 5rem;
-`;
-
 const InfoText = styled.p`
-  font-size: 1rem;
+  font-size: ${theme.em.m};
   color: #8cd881;
 `;
 

@@ -18,7 +18,7 @@ interface Props {
 
 const AnimationWrapper: React.FC<Props> = ({
   children,
-  backgroundColor = theme.primaryBackgroundColor,
+  backgroundColor = theme.color.primaryBackgroundColor,
 }) => {
   const [props, set] = useSpring(() => ({ opacity: 0 }));
 

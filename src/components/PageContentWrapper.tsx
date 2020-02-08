@@ -8,7 +8,7 @@ const PageContentWrapper: React.FC = ({ children }) => {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: ${theme.primaryBackgroundColor};
+    background-color: ${theme.color.primaryBackgroundColor};
     height: 100vh;
     width: 100%;
     padding-top: 2rem;

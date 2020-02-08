@@ -9,7 +9,7 @@ const Root = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: ${theme.secondaryBackgroundColor};
+  background-color: ${theme.color.secondaryBackgroundColor};
   height: 100vh;
   width: 100vw;
   padding-top: 2rem;
@@ -66,7 +66,7 @@ const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
   }, [tagsFinished]);
 
   return (
-    <AnimationWrapper backgroundColor={theme.secondaryBackgroundColor}>
+    <AnimationWrapper backgroundColor={theme.color.secondaryBackgroundColor}>
       <Root>
         <ViewTitle>The start of something delicious</ViewTitle>
         <InfoText>Here are the recepies that fit your description</InfoText>

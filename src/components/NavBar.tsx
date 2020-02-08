@@ -8,10 +8,10 @@ import { FoodContext } from 'context/FoodProvider';
 
 const Root = styled.div`
   width: 100%;
-  height: 5rem;
-  background-color: ${theme.primaryBackgroundColor};
+  height: 8em;
+  background-color: ${theme.color.primaryBackgroundColor};
 
-  border-bottom: 1px solid ${theme.lightgreen};
+  border-bottom: 1px solid ${theme.color.lightgreen};
 `;
 
 const NavWrapper = styled.div`
@@ -26,14 +26,14 @@ const NavWrapper = styled.div`
 
 const Label = styled(Link)`
   font-size: 30px;
-  color: ${theme.lightgreen};
+  color: ${theme.color.lightgreen};
   font-weight: bold;
   font-family: 'Rubik', 'Roboto', 'sans-serif';
   text-decoration: none;
 `;
 
 const LoginButton = styled.div`
-  background-color: ${theme.lightgreen};
+  background-color: ${theme.color.lightgreen};
   color: black;
   border-radius: 5px;
   padding: 1rem;
