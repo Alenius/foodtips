@@ -3,6 +3,8 @@ export default {
     primaryBackgroundColor: '#282c34',
     secondaryBackgroundColor: '#454754',
     lightgreen: '#8cd881',
+    yellow: '#F9F871',
+    teal: '#00a9bc',
   },
   // since the body has font-size of 62.5%
   // the base font is 10px large. This makes

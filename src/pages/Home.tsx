@@ -16,11 +16,11 @@ const Root = styled.div`
 
 const InfoText = styled.p`
   font-size: ${theme.em.m};
-  color: #8cd881;
+  color: ${theme.color.lightgreen};
 `;
 
 const Presentation = styled.h1`
-  color: #8cd881;
+  color: ${theme.color.lightgreen};
 `;
 
 export const Home: React.FC = () => {

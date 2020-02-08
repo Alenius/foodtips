@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from 'theme';
 
 const ListItemRoot = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const ListItemRoot = styled.div`
 
 const ListItemText = styled.p`
   color: ${(props: { selected: boolean }): string =>
-    props.selected ? '#F9F871' : '#8cd881'};
+    props.selected ? theme.color.yellow : theme.color.lightgreen};
 
   border-width: 0px;
   border-bottom-width: ${(props: { selected: boolean }): string =>
@@ -22,7 +23,7 @@ const ListItemText = styled.p`
   font-size: 20px;
 
   ${ListItemRoot}:hover & {
-    color: #00a9bc;
+    color: ${theme.color.teal};
   }
 `;
 interface ListItemProp {
@@ -34,7 +35,7 @@ interface ListItemProp {
 const ListItem: React.FC<ListItemProp> = ({
   item,
   selected = false,
-  onClick
+  onClick,
 }) => {
   return (
     <ListItemRoot onClick={(): void => onClick(item)} key={item}>
