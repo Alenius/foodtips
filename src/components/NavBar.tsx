@@ -7,17 +7,14 @@ import { Link } from 'react-router-dom';
 import { FoodContext } from 'context/FoodProvider';
 
 const Root = styled.div`
-  width: 100%;
-  height: 8em;
-  background-color: ${theme.color.primaryBackgroundColor};
-
+  height: 6rem;
+  background-color: ${theme.color.primaryBackgroundColor}
   border-bottom: 1px solid ${theme.color.lightgreen};
 `;
 
 const NavWrapper = styled.div`
   height: 100%;
-  padding-left: 5rem;
-  padding-right: 2rem;
+  padding: 0 ${theme.rem.xl};
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -25,7 +22,7 @@ const NavWrapper = styled.div`
 `;
 
 const Label = styled(Link)`
-  font-size: 30px;
+  font-size: ${theme.em.xxl};
   color: ${theme.color.lightgreen};
   font-weight: bold;
   font-family: 'Rubik', 'Roboto', 'sans-serif';
@@ -36,7 +33,7 @@ const LoginButton = styled.div`
   background-color: ${theme.color.lightgreen};
   color: black;
   border-radius: 5px;
-  padding: 1rem;
+  padding: ${theme.rem.m};
 
   :hover {
     cursor: pointer;

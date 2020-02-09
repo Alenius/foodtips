@@ -6,7 +6,6 @@ import theme from 'theme';
 import PageContentWrapper from 'components/PageContentWrapper';
 
 const Root = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

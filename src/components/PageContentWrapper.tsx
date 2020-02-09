@@ -4,17 +4,14 @@ import theme from 'theme';
 
 const PageContentWrapper: React.FC = ({ children }) => {
   const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: ${theme.color.primaryBackgroundColor};
-    height: 100vh;
-    width: 100%;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    /* this prevents the padding from chaging the height */
-    box-sizing: border-box;
+    padding: ${theme.em.xl} ${theme.rem.xl};
   `;
 
   return <Wrapper>{children}</Wrapper>;

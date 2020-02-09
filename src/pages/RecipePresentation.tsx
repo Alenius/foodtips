@@ -4,43 +4,30 @@ import ViewTitle from 'components/ViewTitle';
 import { FoodContext } from 'context/FoodProvider';
 import AnimationWrapper from 'components/AnimationWrapper';
 import theme from 'theme';
-
-const Root = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background-color: ${theme.color.secondaryBackgroundColor};
-  height: 100vh;
-  width: 100vw;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  box-sizing: border-box;
-`;
+import PageContentWrapper from 'components/PageContentWrapper';
 
 const InfoText = styled.p`
-  color: #8cd881;
+  color: ${theme.color.lightgreen};
 `;
 
 const ListWrapper = styled.div`
-  padding-top: 2rem;
-  justify-content: center;
   display: grid;
-  width: 75%;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 2rem;
+  grid-gap: ${theme.em.l};
   justify-items: center;
+  width: 75%;
 `;
 
 const Link = styled.a`
-  padding: 1rem;
+  padding: ${theme.em.m} ${theme.rem.m};
   border: 1px solid;
-  border-color: var(--light-green);
+  border-color: ${theme.color.lightgreen};
   text-decoration: none;
-  color: var(--light-green);
+  color: ${theme.color.lightgreen};
 `;
 
 const Title = styled.div`
-  font-size: 1.2rem;
+  font-size: ${theme.em.l};
 `;
 
 const SubTitleWrapper = styled.div`
@@ -49,7 +36,7 @@ const SubTitleWrapper = styled.div`
 `;
 
 const SubTitle = styled.div`
-  font-size: 0.8rem;
+  font-size: ${theme.em.m};
   font-style: italic;
 `;
 
@@ -65,13 +52,35 @@ const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
       window.scroll({ top: 3 * window.innerHeight, behavior: 'smooth' });
   }, [tagsFinished]);
 
+  const mockdata = [
+    {
+      title: 'Burrito bowls',
+      link: 'https://www.budgetbytes.com/easiest-burrito-bowl-meal-prep/',
+      cuisine: 'Mexican',
+      tags: ['Burrito', 'Bowl'],
+      vegan: false,
+      vegetarian: true,
+      __typename: 'Recipe',
+    },
+    {
+      title: 'Vegan ramen',
+      link:
+        'https://www.seriouseats.com/recipes/2015/02/vegan-ramen-miso-creamy-vegan-vegetarian-food-lab-recipe.html',
+      cuisine: 'Japanese',
+      tags: ['Ramen'],
+      vegan: true,
+      vegetarian: true,
+      __typename: 'Recipe',
+    },
+  ];
+
   return (
     <AnimationWrapper backgroundColor={theme.color.secondaryBackgroundColor}>
-      <Root>
+      <PageContentWrapper>
         <ViewTitle>The start of something delicious</ViewTitle>
         <InfoText>Here are the recepies that fit your description</InfoText>
         <ListWrapper>
-          {contextState.selectedRecipes.map(it => {
+          {mockdata.map(it => {
             return (
               <Link
                 href={it.link}
@@ -88,7 +97,7 @@ const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
             );
           })}
         </ListWrapper>
-      </Root>
+      </PageContentWrapper>
     </AnimationWrapper>
   );
 };

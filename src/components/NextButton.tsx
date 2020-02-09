@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
+import theme from 'theme';
 
 const Wrapper = styled.div`
   display: flex;
@@ -10,13 +11,13 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled(Link)`
-  padding: 1rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  font-size: 1.5rem;
+  padding: ${theme.rem.m};
+  padding-left: ${theme.rem.l};
+  padding-right: ${theme.rem.l};
+  font-size: ${theme.em.l};
   border-width: 0px;
-  background-color: #8cd881;
-  color: black;
+  background-color: ${theme.color.lightgreen};
+  color: ${theme.color.black};
   text-decoration: none;
   text-align: center;
 
@@ -35,7 +36,7 @@ const NextButton: React.FC<Props> = ({
   onClick = (): void => {
     return;
   },
-  children
+  children,
 }) => {
   return (
     <Wrapper>
