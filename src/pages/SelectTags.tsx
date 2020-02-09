@@ -8,7 +8,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { FoodContext } from 'context/FoodProvider';
 import AnimationWrapper from 'components/AnimationWrapper';
-import theme from 'theme';
 import PageContentWrapper from 'components/PageContentWrapper';
 
 const ListWrapper = styled.div`

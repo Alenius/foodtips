@@ -1,5 +1,4 @@
 import React, { useReducer, createContext } from 'react';
-import cuisines from '../constants/cusines';
 import { Recipe } from 'interfaces';
 
 interface StateIfc {

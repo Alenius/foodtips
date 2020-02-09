@@ -24,7 +24,7 @@ const AnimationWrapper: React.FC<Props> = ({
 
   useEffect(() => {
     set({ opacity: 1 });
-  }, []);
+  }, [set]);
 
   return (
     <MainWrapper backgroundColor={backgroundColor}>

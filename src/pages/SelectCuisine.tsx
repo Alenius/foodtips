@@ -1,15 +1,13 @@
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import ListItem from 'components/ListItem';
 import ViewTitle from 'components/ViewTitle';
 import NextButton from 'components/NextButton';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { useSpring, animated } from 'react-spring';
 
 import { FoodContext } from 'context/FoodProvider';
 import AnimationWrapper from 'components/AnimationWrapper';
-import theme from 'theme';
 import PageContentWrapper from 'components/PageContentWrapper';
 
 const ListWrapper = styled.div`
@@ -34,15 +32,9 @@ const CUISINE_LIST = gql`
 
 interface Props {
   started: boolean;
-  cuisineFinished: boolean;
-  setCuisineFinished(hasDecidedCuisines: boolean): void;
 }
 
-const SelectCuisine: React.FC<Props> = ({
-  started,
-  cuisineFinished,
-  setCuisineFinished,
-}) => {
+const SelectCuisine: React.FC<Props> = ({ started }) => {
   const { loading, error, data } = useQuery(CUISINE_LIST);
   const [foodItems, setFoodItems] = useState<string[]>([]);
   const { state: contextState, dispatch } = useContext(FoodContext);
@@ -63,12 +55,6 @@ const SelectCuisine: React.FC<Props> = ({
   useEffect(() => {
     if (started) window.scroll({ top: window.innerHeight, behavior: 'smooth' });
   }, [started]);
-
-  useEffect(() => {
-    if (cuisineFinished) {
-      setCuisineFinished(false);
-    }
-  }, [contextState.cuisine]);
 
   const isItemSelected = (item: string): boolean => {
     return contextState.cuisine.includes(item);
