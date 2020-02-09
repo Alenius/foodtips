@@ -8,7 +8,7 @@ import { FoodContext } from 'context/FoodProvider';
 
 const Root = styled.div`
   height: 6rem;
-  background-color: ${theme.color.primaryBackgroundColor}
+  background-color: ${theme.color.primaryBackgroundColor};
   border-bottom: 1px solid ${theme.color.lightgreen};
 `;
 
