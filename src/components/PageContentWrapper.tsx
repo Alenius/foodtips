@@ -4,7 +4,6 @@ import theme from 'theme';
 
 const PageContentWrapper: React.FC = ({ children }) => {
   const Wrapper = styled.div`
-    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
