@@ -10,6 +10,7 @@ import SelectTags from 'pages/SelectTags';
 import RecipePresentation from 'pages/RecipePresentation';
 import { NavBar } from 'components/NavBar';
 import styled from 'styled-components';
+import Footer from 'components/Footer';
 
 const AppWrapper = styled.div`
   height: 100px; /* just some random number */
@@ -41,6 +42,7 @@ const App: React.FC = () => {
               <Route path='/selectCuisine' component={SelectCuisine} />
               <Route path='/' component={Home} />
             </Switch>
+            <Footer />
           </AppWrapper>
         </Router>
       </FoodProvider>
