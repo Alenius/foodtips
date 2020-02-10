@@ -11,11 +11,17 @@ import RecipePresentation from 'pages/RecipePresentation';
 import { NavBar } from 'components/NavBar';
 import styled from 'styled-components';
 import Footer from 'components/Footer';
+import theme from 'theme';
 
 const AppWrapper = styled.div`
-  height: 100px; /* just some random number */
-  height: 100vh;
-  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+`;
+
+const ContentWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
 `;
 
 const client = new ApolloClient({
@@ -33,15 +39,17 @@ const App: React.FC = () => {
           {/* Add the div below for making the page fill entire height and width */}
           <AppWrapper>
             <NavBar />
-            <Switch>
-              <Route
-                path='/recipePresentation'
-                component={RecipePresentation}
-              />
-              <Route path='/selectTags' component={SelectTags} />
-              <Route path='/selectCuisine' component={SelectCuisine} />
-              <Route path='/' component={Home} />
-            </Switch>
+            <ContentWrapper>
+              <Switch>
+                <Route
+                  path='/recipePresentation'
+                  component={RecipePresentation}
+                />
+                <Route path='/selectTags' component={SelectTags} />
+                <Route path='/selectCuisine' component={SelectCuisine} />
+                <Route path='/' component={Home} />
+              </Switch>
+            </ContentWrapper>
             <Footer />
           </AppWrapper>
         </Router>
