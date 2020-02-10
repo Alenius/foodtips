@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import ViewTitle from 'components/ViewTitle';
 import { FoodContext } from 'context/FoodProvider';
-import AnimationWrapper from 'components/AnimationWrapper';
 import theme from 'theme';
 import PageContentWrapper from 'components/PageContentWrapper';
 
