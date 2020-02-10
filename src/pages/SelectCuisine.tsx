@@ -14,7 +14,7 @@ const ListWrapper = styled.div`
   padding-top: 2rem;
   justify-content: center;
   display: grid;
-  width: 75%;
+  width: 100%;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 2rem;
   justify-items: center;
@@ -72,30 +72,26 @@ const SelectCuisine: React.FC<Props> = ({ started }) => {
   };
 
   return (
-    <AnimationWrapper>
-      <PageContentWrapper>
-        <ViewTitle>By cuisine</ViewTitle>
-        <InfoText>
-          Start by choosing what cuisine that interests you today
-        </InfoText>
-        <ListWrapper>
-          {foodItems.map(it => {
-            const selected = isItemSelected(it);
-            return (
-              <ListItem
-                selected={selected}
-                onClick={(): void => onItemClick(it)}
-                item={it}
-                key={it}
-              />
-            );
-          })}
-        </ListWrapper>
-        <NextButton to='/selectTags'>
-          See what you should make today!
-        </NextButton>
-      </PageContentWrapper>
-    </AnimationWrapper>
+    <PageContentWrapper>
+      <ViewTitle>By cuisine</ViewTitle>
+      <InfoText>
+        Start by choosing what cuisine that interests you today
+      </InfoText>
+      <ListWrapper>
+        {foodItems.map(it => {
+          const selected = isItemSelected(it);
+          return (
+            <ListItem
+              selected={selected}
+              onClick={(): void => onItemClick(it)}
+              item={it}
+              key={it}
+            />
+          );
+        })}
+      </ListWrapper>
+      <NextButton to='/selectTags'>See what you should make today!</NextButton>
+    </PageContentWrapper>
   );
 };
 

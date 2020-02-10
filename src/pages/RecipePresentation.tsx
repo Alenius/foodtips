@@ -75,30 +75,28 @@ const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
   ];
 
   return (
-    <AnimationWrapper backgroundColor={theme.color.secondaryBackgroundColor}>
-      <PageContentWrapper>
-        <ViewTitle>The start of something delicious</ViewTitle>
-        <InfoText>Here are the recepies that fit your description</InfoText>
-        <ListWrapper>
-          {mockdata.map(it => {
-            return (
-              <Link
-                href={it.link}
-                target={'_blank'}
-                key={it.title}
-                rel='noopener noreferrer'
-              >
-                <Title>{it.title}</Title>
-                <SubTitleWrapper>
-                  <SubTitle>{`${it.cuisine} \u2022 `}</SubTitle>
-                  <SubTitle>{it.tags.map(it => it)}</SubTitle>
-                </SubTitleWrapper>
-              </Link>
-            );
-          })}
-        </ListWrapper>
-      </PageContentWrapper>
-    </AnimationWrapper>
+    <PageContentWrapper>
+      <ViewTitle>The start of something delicious</ViewTitle>
+      <InfoText>Here are the recepies that fit your description</InfoText>
+      <ListWrapper>
+        {mockdata.map(it => {
+          return (
+            <Link
+              href={it.link}
+              target={'_blank'}
+              key={it.title}
+              rel='noopener noreferrer'
+            >
+              <Title>{it.title}</Title>
+              <SubTitleWrapper>
+                <SubTitle>{`${it.cuisine} \u2022 `}</SubTitle>
+                <SubTitle>{it.tags.map(it => it)}</SubTitle>
+              </SubTitleWrapper>
+            </Link>
+          );
+        })}
+      </ListWrapper>
+    </PageContentWrapper>
   );
 };
 
