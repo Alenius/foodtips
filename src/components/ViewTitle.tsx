@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from 'theme';
 
 const FoodHeader = styled.h1`
-  color: #8cd881;
+  color: ${theme.color.lightgreen};
 `;
 
 interface Props {

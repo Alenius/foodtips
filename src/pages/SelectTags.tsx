@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { FoodContext } from 'context/FoodProvider';
 import PageContentWrapper from 'components/PageContentWrapper';
+import theme from 'theme';
 
 const ListWrapper = styled.div`
   padding-top: 2rem;
@@ -20,7 +21,7 @@ const ListWrapper = styled.div`
 `;
 
 const InfoText = styled.p`
-  color: #8cd881;
+  color: ${theme.color.lightgreen};
 `;
 
 const RECIPES_WITH_CUISINE = gql`
