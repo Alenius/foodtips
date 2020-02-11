@@ -6,6 +6,7 @@ export default {
     yellow: '#F9F871',
     teal: '#00a9bc',
     black: '#101010',
+    lightgray: 'lightgray',
   },
   // since the body has font-size of 62.5%
   // the base font is 10px large. This makes
