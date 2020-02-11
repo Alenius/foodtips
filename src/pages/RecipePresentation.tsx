@@ -51,34 +51,12 @@ const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
       window.scroll({ top: 3 * window.innerHeight, behavior: 'smooth' });
   }, [tagsFinished]);
 
-  const mockdata = [
-    {
-      title: 'Burrito bowls',
-      link: 'https://www.budgetbytes.com/easiest-burrito-bowl-meal-prep/',
-      cuisine: 'Mexican',
-      tags: ['Burrito', 'Bowl'],
-      vegan: false,
-      vegetarian: true,
-      __typename: 'Recipe',
-    },
-    {
-      title: 'Vegan ramen',
-      link:
-        'https://www.seriouseats.com/recipes/2015/02/vegan-ramen-miso-creamy-vegan-vegetarian-food-lab-recipe.html',
-      cuisine: 'Japanese',
-      tags: ['Ramen'],
-      vegan: true,
-      vegetarian: true,
-      __typename: 'Recipe',
-    },
-  ];
-
   return (
     <PageContentWrapper>
       <ViewTitle>The start of something delicious</ViewTitle>
       <InfoText>Here are the recepies that fit your description</InfoText>
       <ListWrapper>
-        {mockdata.map(it => {
+        {contextState.selectedRecipes.map(it => {
           return (
             <Link
               href={it.link}
