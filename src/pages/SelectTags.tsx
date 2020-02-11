@@ -103,6 +103,7 @@ const SelectTags: React.FC = () => {
             payload: filteredRecipeArr,
           });
         }}
+        disabled={contextState.tags.length === 0}
       >
         See your selected recipes
       </NextButton>

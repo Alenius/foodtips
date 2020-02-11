@@ -16,31 +16,43 @@ const Button = styled(Link)`
   padding-right: ${theme.rem.l};
   font-size: ${theme.em.l};
   border-width: 0px;
-  background-color: ${theme.color.lightgreen};
   color: ${theme.color.black};
   text-decoration: none;
   text-align: center;
+  background-color: ${(props: { disabled: boolean }): string =>
+    props.disabled ? theme.color.lightgray : theme.color.lightgreen};
+  opacity: ${(props: { disabled: boolean }): number =>
+    props.disabled ? 0.5 : 1};
 
   :hover {
-    cursor: pointer;
+    cursor: ${(props: { disabled: boolean }): string =>
+      props.disabled ? 'default' : 'pointer'};
   }
 `;
 
 interface Props {
   to: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 const NextButton: React.FC<Props> = ({
   to,
   onClick = (): void => {
-    return;
+    null;
   },
   children,
+  disabled = false,
 }) => {
   return (
     <Wrapper>
-      <Button to={to} onClick={(): void => onClick()}>
+      <Button
+        disabled={disabled}
+        to={to}
+        onClick={(e): void => {
+          disabled ? e.preventDefault() : onClick();
+        }}
+      >
         {children}
       </Button>
     </Wrapper>

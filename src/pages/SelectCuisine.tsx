@@ -90,7 +90,9 @@ const SelectCuisine: React.FC<Props> = ({ started }) => {
           );
         })}
       </ListWrapper>
-      <NextButton to='/selectTags'>See what you should make today!</NextButton>
+      <NextButton disabled={contextState.cuisine.length === 0} to='/selectTags'>
+        See what you should make today!
+      </NextButton>
     </PageContentWrapper>
   );
 };
