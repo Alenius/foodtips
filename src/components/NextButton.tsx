@@ -38,9 +38,7 @@ interface Props {
 
 const NextButton: React.FC<Props> = ({
   to,
-  onClick = (): void => {
-    null;
-  },
+  onClick = (): void => {},
   children,
   disabled = false,
 }) => {
