@@ -29,4 +29,8 @@ export default {
     xxl: '2.5em', // 40px
     xxxl: '3em', // 52
   },
+  screenSize: {
+    small: '600px',
+    medium: '900px',
+  },
 };
