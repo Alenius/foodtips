@@ -8,6 +8,10 @@ const InfoText = styled.p`
   font-size: ${theme.em.m};
   color: ${theme.color.lightgreen};
   width: 60%;
+
+  @media only screen and (max-width: ${theme.screenSize.medium}) {
+    width: 90%;
+  }
 `;
 
 const Presentation = styled.h1`
