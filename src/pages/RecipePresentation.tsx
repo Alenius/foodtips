@@ -24,7 +24,7 @@ const Title = styled.div`
 
 const SubTitleWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 const SubTitle = styled.div`
@@ -59,8 +59,13 @@ const RecipePresentation: React.FC<Props> = ({ tagsFinished }) => {
             >
               <Title>{it.title}</Title>
               <SubTitleWrapper>
-                <SubTitle>{`${it.cuisine} \u2022 `}</SubTitle>
-                <SubTitle>{it.tags.map(it => it)}</SubTitle>
+                <SubTitle>{`${it.cuisine}`}</SubTitle>
+                <SubTitle>
+                  {it.tags.map((it, index) => {
+                    if (index === 0) return `${it}`;
+                    return `, ${it}`;
+                  })}
+                </SubTitle>
               </SubTitleWrapper>
             </Link>
           );
