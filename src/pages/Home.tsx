@@ -7,6 +7,7 @@ import PageContentWrapper from 'components/PageContentWrapper';
 const InfoText = styled.p`
   font-size: ${theme.em.m};
   color: ${theme.color.lightgreen};
+  width: 60%;
 `;
 
 const Presentation = styled.h1`
