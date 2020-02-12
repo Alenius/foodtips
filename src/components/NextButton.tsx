@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+  padding: ${theme.em.m} 0;
 `;
 
 const Button = styled(Link)`
