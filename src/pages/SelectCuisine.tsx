@@ -9,16 +9,7 @@ import { gql } from 'apollo-boost';
 import { FoodContext } from 'context/FoodProvider';
 import PageContentWrapper from 'components/PageContentWrapper';
 import theme from 'theme';
-
-const ListWrapper = styled.div`
-  padding-top: 2rem;
-  justify-content: center;
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 2rem;
-  justify-items: center;
-`;
+import { ListWrapper } from 'components/ListWrapper';
 
 const InfoText = styled.p`
   color: ${theme.color.lightgreen};

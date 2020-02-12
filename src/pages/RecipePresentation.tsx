@@ -4,17 +4,10 @@ import ViewTitle from 'components/ViewTitle';
 import { FoodContext } from 'context/FoodProvider';
 import theme from 'theme';
 import PageContentWrapper from 'components/PageContentWrapper';
+import { ListWrapper } from 'components/ListWrapper';
 
 const InfoText = styled.p`
   color: ${theme.color.lightgreen};
-`;
-
-const ListWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: ${theme.em.l};
-  justify-items: center;
-  width: 75%;
 `;
 
 const Link = styled.a`
